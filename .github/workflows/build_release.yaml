@@ -25,7 +25,7 @@ jobs:
           stack build
           find .stack-work/install -name oschark -exec mv {} . \;
       - name: save executable as artifact
-        uses: actions/upload-artifacts@v2
+        uses: actions/upload-artifact@v2
         with:
           name: oschark_${{matrix.os}}
           path: oschark
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: retrive artifacts
-        uses: actions/download-artifacts@v2
+        uses: actions/download-artifact@v2
       - name: do Release
         uses: softprops/action-gh-release@v1
         with:
@@ -42,4 +42,4 @@ jobs:
           files: |
               oschark_*
               LICENSE
-        
+
