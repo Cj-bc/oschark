@@ -1,0 +1,3 @@
+# Changelog for oschark
+
+## Unreleased changes

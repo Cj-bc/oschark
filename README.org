@@ -1,0 +1,4 @@
+* oschark
+
+  Simple OSC protocol viewer in CLI.
+
