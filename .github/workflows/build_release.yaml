@@ -9,8 +9,10 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{matrix.os}}
 
     steps:
       - uses: actions/checkout@v2
@@ -22,11 +24,21 @@ jobs:
         run: |
           stack build
           find .stack-work/install -name oschark -exec mv {} . \;
+      - name: save executable as artifact
+        uses: actions/upload-artifacts@v2
+	with:
+	  name: oschark_${{matrix.os}}
+	  path: oschark
+
+  release:
+    steps:
+      - name: retrive artifacts
+        uses: actions/download-artifacts@v2
       - name: do Release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
           files: |
-              oschark
+              oschark_*
               LICENSE
         
