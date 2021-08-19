@@ -21,6 +21,7 @@ jobs:
           enable-stack: true
 
       - name: build executable
+        shell: bash
         run: |
           stack build
           find .stack-work/install -name oschark -exec mv {} . \;
