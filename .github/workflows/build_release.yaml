@@ -2,7 +2,7 @@
 on:
   push:
     tags:
-        - "*.*.0.0"
+        - "*.*.*.*"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -26,9 +26,9 @@ jobs:
           find .stack-work/install -name oschark -exec mv {} . \;
       - name: save executable as artifact
         uses: actions/upload-artifacts@v2
-	with:
-	  name: oschark_${{matrix.os}}
-	  path: oschark
+        with:
+          name: oschark_${{matrix.os}}
+          path: oschark
 
   release:
     steps:
