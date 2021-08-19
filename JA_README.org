@@ -1,0 +1,15 @@
+* oschark
+
+  シンプルなCLI用OSCビューワーです。
+  シンプルに値を掃き出します。
+
+** Usage
+   アドレスとポート番号を指定すれば動きます。
+  
+   ~--bundle~ オプションが有効な場合、パケットの代わりに ~Bundle~
+   としてデータを受け取って表示します。
+
+   #+begin_src sh
+     oschark <address> <port number> [--bundle]
+   #+end_src
+   
