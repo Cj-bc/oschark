@@ -1,3 +1,8 @@
-# Changelog for oschark
+* Changelog for oschark
 
-## Unreleased changes
+** Unreleased changes
+   
+** 0.2.0.0
+   + Changed output format
+   + Removed ~--bundle~ flag from command line arguments
+   + oschark now recognize and uses command line arguments for its behaviour
