@@ -41,11 +41,11 @@ gplInfo = unlines [ "oschark Copyright (C) 2021 Cj.bc-sd a.k.a. Cj-bc"
 optionParser = info (options <**> helper)
                $ fullDesc <> progDesc "Show OSC packets/bundles"
                <> header gplInfo
+
   
 main :: IO ()
 main = do
   opts <- execParser optionParser
   putStrLn "App is up. Trying to capture bundles..."
-  withTransport_ (udpServer (address opts) (portNumber opts)) $ forever $ do
-    bundle <- recvBundle
-    liftIO . print . show $ bundle
+  withTransport_ (udpServer (address opts) (portNumber opts))
+    . forever $ recvBundle >>= liftIO . print
