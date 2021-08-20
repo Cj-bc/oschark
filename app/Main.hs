@@ -23,14 +23,10 @@ import Options.Applicative
 -- | All available options that this executable has
 data ExecutableOptions = ExecutableOptions { address :: String
                                            , portNumber :: Int
-                                           -- | If 'True', recieve as 'Bundle'.
-                                           -- Else, recieve as 'Packet'.
-                                           , useBundle :: Bool
                                            }
   
 options = ExecutableOptions <$> argument str (metavar "Address")
                             <*> argument auto (metavar "PortNumber")
-          <*> switch (long "bundle" <> help "Recieve as bundles instead of packets")
 
 gplInfo = unlines [ "oschark Copyright (C) 2021 Cj.bc-sd a.k.a. Cj-bc"
                   , "This program comes with ABSOLUTELY NO WARRANTY; for details type `info gpl’."

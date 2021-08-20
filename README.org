@@ -5,10 +5,7 @@
 ** Usage
    Just give address and port number, and it works.
 
-   If ~--bundle~ option is enabled, it will recieve and print
-   data as 'Bundle' rather than packets.
-
    #+begin_src sh
-     oschark <address> <port number> [--bundle]
+     oschark <address> <port number>
    #+end_src
    

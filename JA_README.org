@@ -3,7 +3,7 @@
   シンプルなCLI用OSCビューワーです。
   シンプルに値を掃き出します。
 
-** Usage
+** 使用方法
    アドレスとポート番号を指定すれば動きます。
   
    ~--bundle~ オプションが有効な場合、パケットの代わりに ~Bundle~
@@ -13,3 +13,14 @@
      oschark <address> <port number> [--bundle]
    #+end_src
    
+
+   
+** インストール
+   
+*** 1. stackを使う
+    
+    #+begin_src sh
+      git clone https://github.com/Cj-bc/oschark
+      cd oschark
+      stack install oschark
+    #+end_src
