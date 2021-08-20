@@ -42,7 +42,7 @@ gplInfo = unlines [ "oschark Copyright (C) 2021 Cj.bc-sd a.k.a. Cj-bc"
                   ]
 
 optionParser = info (options <**> helper)
-               $ fullDesc <> progDesc "Show OSC packets/bundles"
+               $ fullDesc <> progDesc "Show OSC packets/bundles; C-c to quit"
                <> header gplInfo
 
 type UDPRecv = ReaderT UDP IO  
