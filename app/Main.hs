@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 -- Oschark -- a simple osc packet viewer
 --    Copyright (C) 2021 Cj.bc-sd a.k.a. Cj-bc
 --
@@ -17,6 +18,12 @@ module Main where
 import Sound.OSC
 import Control.Monad (forever)
 import Control.Monad.IO.Class (liftIO)
+import Control.Monad.Trans.Reader (ReaderT)
+import Data.String (fromString)
+import Data.Text (Text)
+import qualified Data.Text as T
+import qualified Data.Text.IO as TI
+import Data.List (intersperse)
 
 import Options.Applicative
 
@@ -38,10 +45,37 @@ optionParser = info (options <**> helper)
                $ fullDesc <> progDesc "Show OSC packets/bundles"
                <> header gplInfo
 
+type UDPRecv = ReaderT UDP IO  
+
+fromShow :: Show a => a -> Text
+fromShow = fromString . show
+
+formatPacket :: Packet -> Text
+formatPacket (Packet_Message m) = formatMessage m
+formatPacket (Packet_Bundle b)  = formatBundle b
+
+formatBundle :: Bundle -> Text
+formatBundle (Bundle time msgs) = "[" <> (fromShow time) <> "] \n"<> (T.unlines $ fmap ( mappend "\t" . formatMessage ) msgs)
+
+formatMessage :: Message -> Text
+formatMessage (Message addr datums) = mconcat $ [fromShow addr, ": "]
+                                      ++ (intersperse "," . fmap formatDatum) datums
+
+formatDatum :: Datum -> Text
+formatDatum (Int32 v) 		= fromShow v
+formatDatum (Int64 v)		= fromShow v
+formatDatum (Float v)		= fromShow v
+formatDatum (Double v)		= fromShow v
+formatDatum (ASCII_String v)	= fromShow v
+formatDatum (Blob v)		= fromShow v
+formatDatum (TimeStamp v)	= fromShow v
+formatDatum (Midi v)		= fromShow v
+
   
 main :: IO ()
 main = do
   opts <- execParser optionParser
   putStrLn "App is up. Trying to capture bundles..."
+
   withTransport_ (udpServer (address opts) (portNumber opts))
-    . forever $ recvBundle >>= liftIO . print
+    . forever $ recvPacket >>= liftIO . TI.putStrLn . formatPacket
