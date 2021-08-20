@@ -46,6 +46,6 @@ main :: IO ()
 main = do
   opts <- execParser optionParser
   putStrLn "App is up. Trying to capture bundles..."
-  withTransport_ (udpServer "192.168.10.3" 39540) $ forever $ do
+  withTransport_ (udpServer (address opts) (portNumber opts)) $ forever $ do
     bundle <- recvBundle
     liftIO . print . show $ bundle
