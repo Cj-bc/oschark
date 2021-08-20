@@ -24,7 +24,7 @@ jobs:
         shell: bash
         run: |
           stack build
-          (cd .stack-work; find install -name oschark -exec mv {} . \;)
+          find .stack-work -path "*bin/oschark" -exec mv {} . \;
       - name: save executable as artifact
         uses: actions/upload-artifact@v2
         with:
