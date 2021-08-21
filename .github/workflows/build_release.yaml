@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: oschark_${{matrix.os}}
-          path: oschark
+          path: oschark_${{matrix.os}}
 
   release:
     needs: build
