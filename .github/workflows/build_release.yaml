@@ -39,6 +39,10 @@ jobs:
       - name: retrive artifacts
         id: retrive-artifacts
         uses: actions/download-artifact@v2
+      - name: <debug> investigate directory structure
+        shell: bash
+        run: ls -R
+
       - name: do Release
         uses: softprops/action-gh-release@v1
         with:
